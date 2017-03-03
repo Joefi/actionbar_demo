@@ -4,6 +4,8 @@ import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.ActionBar.TabListener;
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.Menu;
@@ -12,6 +14,8 @@ import android.view.Window;
 
 public class MainActivity extends Activity implements TabListener {
 
+	
+	private Fragment currentFragment=null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,32 +43,38 @@ public class MainActivity extends Activity implements TabListener {
 		// TODO Auto-generated method stub
 		
 	}
+	
 	//Tab被选中时的操作
 	@Override
 	public void onTabSelected(Tab tab, FragmentTransaction ft) {
 		// TODO Auto-generated method stub
+		
 		switch(tab.getPosition())
 		{
 		case 0:
 			BlackFragment bf = new BlackFragment();
-			ft.add(android.R.id.content, bf);
+			ft.add(android.R.id.content,bf);
+			currentFragment=bf;
 			break;
 		case 1:
 			RedFragment rf = new RedFragment();
-			ft.add(android.R.id.content, rf);
+			ft.add(android.R.id.content,rf);
+			currentFragment=rf;
 			break;
 		case 2:
 			BlueFragment bbf = new BlueFragment();
-			ft.add(android.R.id.content, bbf);
+			ft.add(android.R.id.content,bbf);
+			currentFragment=bbf;
 			break;
 		default:
 			break;
 		}
+		
 	}
 	//Tab离开选中状态的操作
 	@Override
 	public void onTabUnselected(Tab tab, FragmentTransaction ft) {
 		// TODO Auto-generated method stub
-		
+		ft.remove(currentFragment);
 	}
 }
